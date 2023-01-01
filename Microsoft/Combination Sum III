@@ -1,0 +1,33 @@
+class Solution {
+public:
+
+    void fun(vector<vector<int>> &output, vector<int> current, int n, int k, int start){
+        if(n==0 && k==0){
+            output.push_back(current);
+            return;
+        }
+
+        if(k==0){
+            return;
+        }
+
+        for(int i=start; i<=9; i++){
+            current.push_back(i);
+            fun(output, current, n-i, k-1, i+1);
+            current.pop_back();
+        }
+
+        return;
+    }
+
+    vector<vector<int>> combinationSum3(int k, int n) {
+        
+        vector<vector<int>> output;
+
+        vector<int> current;
+
+        fun(output, current, n,k,1);
+
+        return output;
+    }
+};
