@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> st1;
+        for(auto it: tokens){
+            if(it == "+" || it == "-" || it == "*" || it == "/"){       //if data is an operator
+                int num2 = st1.top(); st1.pop();
+                int num1 = st1.top(); st1.pop();
+                if(it == "+"){
+                    st1.push(num1 + num2);
+                }
+                else if(it == "-"){
+                    st1.push(num1 - num2);
+                }
+                else if(it == "*"){
+                    st1.push(num1 * num2);
+                }
+                else{
+                    st1.push(num1 / num2);
+                }
+            }
+            else{
+                stringstream ss(it);                        //converting string to integer
+                int data;
+                ss>>data;
+                st1.push(data);
+            }
+        }
+        return st1.top();                           //returns the topmost element i.e. the result
+    }
+};
