@@ -1,0 +1,27 @@
+class Solution { 
+public:
+  bool backtrack(vector<int>&a,int start,int curr_sum,int k,int &req_sum,int n,vector<bool>&vis){
+      if(k==1)return true;
+      if(curr_sum==req_sum)return backtrack(a,0,0,k-1,req_sum,n,vis);
+      
+      for(int i=start;i<n;i++){
+          if(vis[i]==false){
+          
+              vis[i]=true;
+              if(backtrack(a,i+1,curr_sum+a[i],k,req_sum,n,vis))return true;
+              vis[i]=false;
+                 if(curr_sum==0){cout<<i<<" ";break; } 
+      }
+          }
+      return false;
+  }
+    bool canPartitionKSubsets(vector<int>& a, int k){
+        int sum=accumulate(a.begin(),a.end(),0);
+        int n=a.size();
+        sort(a.begin(),a.end(),greater<int>()); 
+         if(sum%k ||n<k)return false;
+         vector<bool>vis(n,false);
+        int req_sum=sum/k;
+         return backtrack(a,0,0,k,req_sum,n,vis);
+    }
+};
